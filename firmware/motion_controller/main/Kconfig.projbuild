@@ -1,0 +1,116 @@
+menu "pragRover motion controller"
+config ROVER_WIRING_CONFIRMED
+    bool "Enable physical I/O after verifying wiring and calibration"
+    default n
+    help
+        Default leaves ALL GPIO, LEDC and PCNT untouched and rejects arming.
+        Enable only after independent verification of board pins, motor/driver
+        ratings, nSLEEP pull-down, NC bumpers, power and encoder calibration.
+        Never flash with motors powered during initial bring-up.
+config ROVER_WIFI_SSID
+    string "Wi-Fi SSID (WPA2 or better)"
+    default ""
+config ROVER_WIFI_PASSWORD
+    string "Wi-Fi password"
+    default ""
+config ROVER_SHARED_SECRET
+    string "Local TCP shared secret (16 to 128 characters)"
+    default ""
+    help
+        TCP is unencrypted on the local LAN. Use an isolated trusted robot LAN.
+        Tailscale/SSH reaches the host gateway, not this ESP32 endpoint.
+config ROVER_TCP_PORT
+    int "TCP JSONL port"
+    range 1024 65535
+    default 8765
+config ROVER_LEFT_IN1
+    int "Left driver IN1 GPIO"
+    range -1 39
+    default -1
+config ROVER_LEFT_IN2
+    int "Left driver IN2 GPIO"
+    range -1 39
+    default -1
+config ROVER_RIGHT_IN1
+    int "Right driver IN1 GPIO"
+    range -1 39
+    default -1
+config ROVER_RIGHT_IN2
+    int "Right driver IN2 GPIO"
+    range -1 39
+    default -1
+config ROVER_SLEEP_PIN
+    int "DRV8833 nSLEEP GPIO (must be accessible, externally pulled low)"
+    range -1 39
+    default -1
+config ROVER_LEFT_ENCODER_A
+    int "Left encoder A GPIO"
+    range -1 39
+    default -1
+config ROVER_RIGHT_ENCODER_A
+    int "Right encoder A GPIO"
+    range -1 39
+    default -1
+config ROVER_LEFT_ENCODER_B
+    int "Left encoder B GPIO (-1 for single-channel rising-edge mode)"
+    range -1 39
+    default -1
+config ROVER_RIGHT_ENCODER_B
+    int "Right encoder B GPIO (-1 for single-channel rising-edge mode)"
+    range -1 39
+    default -1
+config ROVER_BUMPER_LEFT
+    int "Left NC bumper GPIO"
+    range -1 39
+    default -1
+config ROVER_BUMPER_RIGHT
+    int "Right NC bumper GPIO"
+    range -1 39
+    default -1
+config ROVER_INVERT_LEFT_MOTOR
+    bool "Invert left motor output"
+    default n
+config ROVER_INVERT_RIGHT_MOTOR
+    bool "Invert right motor output"
+    default n
+config ROVER_INVERT_LEFT_ENCODER
+    bool "Invert left quadrature counts (ignored in single-channel mode)"
+    default n
+config ROVER_INVERT_RIGHT_ENCODER
+    bool "Invert right quadrature counts (ignored in single-channel mode)"
+    default n
+config ROVER_ENCODER_FILTER_NS
+    int "PCNT glitch filter duration, nanoseconds (verify against signal)"
+    range 1 12000
+    default 1000
+config ROVER_WHEEL_RADIUS_M
+    string "Measured effective wheel radius, metres"
+    default "0"
+config ROVER_TRACK_M
+    string "Measured effective wheel separation, metres"
+    default "0"
+config ROVER_COUNTS_PER_REVOLUTION
+    string "Measured counts per wheel revolution (rising edges or quadrature x4)"
+    default "0"
+    help
+        Both wheels must use the same edge mode and counts/rev calibration.
+        Gear ratio alone is not encoder counts per wheel revolution.
+config ROVER_KP
+    string "Wheel PI proportional gain, duty/(m/s)"
+    default "0"
+config ROVER_KI
+    string "Wheel PI integral gain, duty/m"
+    default "0"
+config ROVER_FEEDFORWARD
+    string "Wheel velocity feedforward gain, duty/(m/s)"
+    default "0"
+config ROVER_MAX_SPEED_MPS
+    string "Maximum wheel target speed, m/s (initial engineering limit)"
+    default "0.2"
+config ROVER_MAX_ACCELERATION_MPS2
+    string "Wheel target slew limit, m/s^2 (initial engineering limit)"
+    default "0.3"
+config ROVER_MAX_DUTY
+    string "Maximum absolute PWM duty, fraction"
+    default "0.5"
+endmenu

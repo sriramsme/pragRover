@@ -1,0 +1,53 @@
+menu "pragRover camera node"
+
+config ROVER_CAMERA_PROFILE_CONFIRMED
+    bool "I verified this is an AI Thinker ESP32-CAM with OV2640 and PSRAM"
+    default n
+    select SPIRAM
+    help
+        Disabled firmware exits before configuring camera pins or Wi-Fi.
+        Compare the actual board with the AI Thinker pin profile in camera_node.c.
+        The MB USB programmer base does not establish the camera board pinout.
+
+config ROVER_CAMERA_WIFI_SSID
+    string "Wi-Fi SSID (build secret)"
+    default ""
+
+config ROVER_CAMERA_WIFI_PASSWORD
+    string "Wi-Fi password (build secret)"
+    default ""
+
+config ROVER_CAMERA_BEARER_TOKEN
+    string "HTTP bearer token (at least 24 ASCII characters, build secret)"
+    default ""
+    help
+        Sent by clients as Authorization: Bearer TOKEN. Keep sdkconfig,
+        build outputs, binaries and serial traces private. HTTP is not TLS;
+        use only a trusted isolated LAN and tunnel through the host.
+
+config ROVER_CAMERA_HTTP_PORT
+    int "Snapshot HTTP port"
+    range 1 65534
+    default 80
+
+config ROVER_CAMERA_STREAM_PORT
+    int "Stream HTTP port (must differ from snapshot port)"
+    range 1 65534
+    default 81
+
+config ROVER_CAMERA_JPEG_QUALITY
+    int "JPEG quality (lower is better, larger frames)"
+    range 10 40
+    default 15
+
+config ROVER_CAMERA_STREAM_FPS
+    int "Stream frame-rate ceiling (not a guaranteed rate)"
+    range 1 10
+    default 5
+
+config ROVER_CAMERA_STREAM_SECONDS
+    int "Maximum stream session duration in seconds (client reconnects)"
+    range 1 120
+    default 60
+
+endmenu

@@ -1,0 +1,9 @@
+CONFIG_IDF_TARGET="esp32"
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+# PSRAM is selected only by explicit camera-profile confirmation in menuconfig.
+# Before that even boot-time PSRAM GPIO initialization is disabled.
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=6144
+CONFIG_LWIP_MAX_SOCKETS=12
+CONFIG_HTTPD_MAX_REQ_HDR_LEN=1024
+CONFIG_COMPILER_CXX_EXCEPTIONS=n
+CONFIG_COMPILER_CXX_RTTI=n

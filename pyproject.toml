@@ -1,0 +1,39 @@
+[project]
+name = "prag-rover"
+version = "0.1.0"
+description = "pragRover: ESP32 firmware host, simulator, and PragYantra integration"
+readme = "README.md"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+dependencies = ["pragyantra"]
+
+[project.optional-dependencies]
+decisions = ["pragyantra[decisions]"]
+
+[project.scripts]
+prag-rover = "prag_rover.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.11.24,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.uv.sources]
+pragyantra = { path = "vendor/pragyantra-0.1.0.tar.gz" }
+
+[tool.uv.build-backend]
+source-include = ["vendor/*.tar.gz", "vendor/README.md", "uv.lock"]
+
+[dependency-groups]
+dev = ["pytest>=9.1.1", "ruff>=0.17.1"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--import-mode=importlib -ra"
+
+[tool.ruff]
+target-version = "py312"
+extend-exclude = [".esp-idf", ".espressif", ".idf-python", ".uv-cache", "build-enabled", "build-motion-enabled", "firmware/**/build*", "firmware/**/managed_components"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

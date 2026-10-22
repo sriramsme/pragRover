@@ -1,0 +1,51 @@
+[project]
+name = "prag-rover-idf-tools"
+version = "0.1.0"
+description = "Isolated ESP-IDF 5.5.2 Python tool environment, managed by uv"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "click>=8.1.8",
+    "construct>=2.10.70",
+    "cryptography>=44.0.3",
+    "esp-coredump>=1.17.2",
+    "esp-idf-diag>=0.2.0",
+    "esp-idf-kconfig>=2.5.4",
+    "esp-idf-monitor>=1.10.0",
+    "esp-idf-nvs-partition-gen>=0.1.9",
+    "esp-idf-panic-decoder>=1.5.0",
+    "esp-idf-size>=1.7.1",
+    "esptool>=4.12.0",
+    "freertos-gdb>=1.0.4",
+    "idf-component-manager~=2.2",
+    "importlib-metadata ; python_full_version < '3.8'",
+    "packaging>=26.3",
+    "psutil>=7.2.2",
+    "pyclang>=0.7.0",
+    "pyelftools>=0.33",
+    "pyparsing>=3.2.5",
+    "pyserial>=3.5",
+    "rich>=15.0.0",
+    "setuptools>=84.2.1",
+    "tree-sitter>=0.26.0",
+    "tree-sitter-c>=0.24.2",
+]
+
+[tool.uv]
+package = false
+# Core restrictions from the adjacent frozen official constraint snapshot.
+constraint-dependencies = [
+    "click>=7.0,<8.2",
+    "cryptography>=2.1.4,<45",
+    "pyparsing>=3.1.0,<3.3",
+    "idf-component-manager>=2.2,<=2.5.2",
+    "urllib3<2",
+    "esptool~=4.12",
+    "bitstring<5",
+    "esp-coredump~=1.10,!=1.17.0",
+    "esp-idf-kconfig>=2.0.2,<3.0.0",
+    "freertos-gdb~=1.0",
+    "esp-idf-monitor>=1.6.2,<2",
+    "esp-idf-size>=1.4.0,<2.0.0",
+    "esp-idf-nvs-partition-gen~=0.1.9",
+    "tree-sitter-c>=0.21.4",
+]
